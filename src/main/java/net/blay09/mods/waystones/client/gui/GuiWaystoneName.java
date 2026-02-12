@@ -27,19 +27,19 @@ public class GuiWaystoneName extends GuiScreen {
 	@Override
 	@SuppressWarnings("unchecked")
 	public void initGui() {
-		String oldText = tileWaystone.getWaystoneName();
+		String waystoneName = tileWaystone.getWaystoneName();
 		if (textField != null) {
-			oldText = textField.getText();
+			waystoneName = textField.getText();
 		}
 		textField = new GuiTextField(fontRendererObj, width / 2 - 100, height / 2 - 20, 200, 20);
-		textField.setText(oldText);
+		textField.setText(waystoneName);
 		textField.setFocused(true);
 		btnDone = new GuiButton(0, width / 2, height / 2 + 10, 100, 20, I18n.format("gui.done"));
 		buttonList.add(btnDone);
 
 		chkGlobal = new GuiCheckBox(1, width / 2 - 100, height / 2 + 15,
 				" " + I18n.format("gui.waystones:editWaystone.isGlobal"),
-				WaystoneManager.getServerWaystone(tileWaystone.getWaystoneName()) != null);
+				WaystoneManager.getServerWaystone(waystoneName) != null);
 		if (!Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode) {
 			chkGlobal.visible = true;
 		}
