@@ -9,7 +9,7 @@ public class GuiButtonWaystone extends GuiButton {
 	private final WaystoneEntry waystone;
 
 	public GuiButtonWaystone(int id, int x, int y, WaystoneEntry waystone) {
-		super(id, x, y, (waystone.isGlobal() ? EnumChatFormatting.YELLOW : "") +  waystone.getName());
+		super(id, x, y, (waystone.isGlobal() ? EnumChatFormatting.YELLOW : "") + waystone.getName());
 		this.waystone = waystone;
 	}
 
