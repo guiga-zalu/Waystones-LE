@@ -40,6 +40,8 @@ public class WaystoneConfig {
 	// TODO: Affect chat activation message.
 	public static String globalNameFormating;
 
+	public static int warpListButtonsPerPage;
+
 	public void reloadLocal(Configuration config) {
 		teleportButton = config.getBoolean("Teleport Button in GUI", "general", false,
 				"Should there be a button in the inventory to access the waystone menu?");
@@ -84,7 +86,10 @@ public class WaystoneConfig {
 
 		globalNameFormating = config.getString("Custom text formating for Global Waystones", "general",
 				"\u00a7e",
-				"Custom formating for the name of global waystones. Leave empty for default (yellow text).");
+				"Custom formating for the name of global waystones (default: \"\u00a7e\", yellow text).");
+
+		warpListButtonsPerPage = config.getInt("Warp List Buttons per Page", "client", 10, 1, 20,
+				"The number of buttons per page in the warp list (1-20, default: 10).");
 
 		String[] serverWaystoneData = config.getStringList("Server Waystones", "generated", new String[0],
 				"This option is automatically populated by the server when using the Server Hub Mode. Do not change.");

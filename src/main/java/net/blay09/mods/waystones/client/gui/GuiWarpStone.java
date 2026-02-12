@@ -1,5 +1,6 @@
 package net.blay09.mods.waystones.client.gui;
 
+import net.blay09.mods.waystones.WaystoneConfig;
 import net.blay09.mods.waystones.WaystoneManager;
 import net.blay09.mods.waystones.Waystones;
 import net.blay09.mods.waystones.network.NetworkHandler;
@@ -15,6 +16,7 @@ import java.util.Iterator;
 
 public class GuiWarpStone extends GuiScreen {
 
+	private static final int BUTTON_HEIGHT = 22;
 	private final WaystoneEntry[] entries;
 	private GuiButton btnPrevPage;
 	private GuiButton btnNextPage;
@@ -29,10 +31,12 @@ public class GuiWarpStone extends GuiScreen {
 	@Override
 	@SuppressWarnings("unchecked")
 	public void initGui() {
+		// TODO: recalculate positions based on resolution and buttons per page.
 		btnPrevPage = new GuiButton(0, width / 2 - 100, height / 2 + 40, 95, 20,
 				I18n.format("gui.waystones:warpStone.previousPage"));
 		buttonList.add(btnPrevPage);
 
+		// TODO: recalculate.
 		btnNextPage = new GuiButton(1, width / 2 + 5, height / 2 + 40, 95, 20,
 				I18n.format("gui.waystones:warpStone.nextPage"));
 		buttonList.add(btnNextPage);
@@ -42,7 +46,7 @@ public class GuiWarpStone extends GuiScreen {
 
 	@SuppressWarnings("unchecked")
 	public void updateList() {
-		final int buttonsPerPage = 4;
+		int buttonsPerPage = WaystoneConfig.warpListButtonsPerPage;
 
 		btnPrevPage.enabled = pageOffset > 0;
 		btnNextPage.enabled = pageOffset < (entries.length - 1) / buttonsPerPage;
@@ -55,12 +59,13 @@ public class GuiWarpStone extends GuiScreen {
 		}
 
 		int y = 0;
-		var currDimensionId = Minecraft.getMinecraft().theWorld.provider.dimensionId;
+		int currDimensionId = Minecraft.getMinecraft().theWorld.provider.dimensionId;
 		for (int i = 0; i < buttonsPerPage; i++) {
 			int entryIndex = pageOffset * buttonsPerPage + i;
 			if (entryIndex < 0 || entryIndex >= entries.length)
 				continue;
 
+			// TODO: recalculate.
 			GuiButtonWaystone btnWaystone = new GuiButtonWaystone(
 					2 + i, width / 2 - 100, height / 2 - 60 + y,
 					entries[entryIndex]);
@@ -68,7 +73,7 @@ public class GuiWarpStone extends GuiScreen {
 				btnWaystone.enabled = WaystoneManager.isDimensionWarpAllowed(entries[entryIndex]);
 			}
 			buttonList.add(btnWaystone);
-			y += 22;
+			y += BUTTON_HEIGHT;
 		}
 	}
 
